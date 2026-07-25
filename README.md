@@ -286,10 +286,48 @@ sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-## 6. Try it on your devices
+## 6 (a). Try it on your devices
 
 From any device on the same network, visit `http://<pi-ip-or-hostname>/`.
 Register an account, log in, and upload a file.
+
+### or
+
+## 6 (b). Secure Remote Access with Tailscale
+
+To access your personal cloud securely outside your home network without exposing open ports to the internet, use Tailscale.
+
+
+A. Install Tailscale on the Raspberry Pi
+Run the automated installation script:
+```bash
+curl -fsSL https://tailscale.com/install.sh | sh
+```
+  B. Authenticate and Connect
+  Start Tailscale and log in:
+
+```bash
+  sudo tailscale up
+```
+
+C. Access Your Personal Cloud
+ 1. Install Tailscale on your phone, laptop, or remote client devices.
+ 2. Find your Pi’s Tailscale IP address or MagicDNS hostname by running:
+
+  ```bash
+  tailscale ip -4
+  # or check your hostname:
+  tailscale status
+  ```
+3. Open your remote device's web browser and go to:
+  ```bash
+  http://<your-pi-tailscale-ip>/
+# or using MagicDNS:
+http://<your-pi-hostname>.<your-tailnet-name>.ts.net/
+```
+
+
+
 
 ## Raspberry Pi performance notes
 
