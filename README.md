@@ -3,10 +3,10 @@ A lightweight, self-hosted personal cloud built to run comfortably on a
 Raspberry Pi Zero 2 W. Register an account, log in, and upload, browse,
 download, and delete your own files through a simple web dashboard.
 
-Phase 1 intentionally implements only the core loop — auth, upload,
+This version implements only the core loop — auth, upload,
 list, download, delete, storage usage — so it stays fast on 512 MB of
 RAM. Folders, sharing, search, previews, sync, and backups are left for
-later phases; the service-oriented architecture is designed so those
+later versions; the service-oriented architecture is designed so those
 can be added without a rewrite.
 
 ## Stack
