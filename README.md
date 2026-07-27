@@ -1,4 +1,4 @@
-# Personal Cloud — Phase 2 (Advanced File Management)
+# ☁️ Personal Cloud
 
 A lightweight, self-hosted personal cloud built to run comfortably on a
 Raspberry Pi Zero 2 W. In v2 we have file explorer: nested folders, rename/move/
