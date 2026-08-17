@@ -1,4 +1,7 @@
 # ☁️ Personal Cloud 
+
+<img width="3904" height="1088" alt="claw" src="https://github.com/user-attachments/assets/8facd9a6-ea2e-40ed-9445-d0ebe9ca0a97" />
+
 A lightweight, self-hosted personal cloud built to run comfortably on a
 Raspberry Pi Zero 2 W. Register an account, log in, and upload, browse,
 download, and delete your own files through a simple web dashboard.
