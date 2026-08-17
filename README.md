@@ -1,4 +1,5 @@
 # ☁️ Personal Cloud
+<img width="3904" height="1088" alt="claw" src="https://github.com/user-attachments/assets/f57321bc-951e-47b2-8e53-794af49d7ed1" />
 
 A lightweight, self-hosted personal cloud built to run comfortably on a
 Raspberry Pi Zero 2 W. In v2 we have file explorer: nested folders, rename/move/
