@@ -11,10 +11,9 @@ class FolderCreateIn(BaseModel):
 
 
 class FolderUpdateIn(BaseModel):
-    """Used for both rename and move — either or both fields may be set."""
+
     folder_name: str | None = Field(default=None, min_length=1, max_length=255)
     parent_id: str | None = Field(default=None)
-    # Distinguishes "don't move it" from "move it to root" (parent_id=None).
     move_to_root: bool = False
 
 
@@ -28,12 +27,12 @@ class FolderOut(BaseModel):
 
 
 class BreadcrumbItem(BaseModel):
-    id: str | None  # None represents "Home" (root)
+    id: str | None  # None -> "Home" (root)
     folder_name: str
 
 
 class FolderContentsOut(BaseModel):
-    folder: FolderOut | None  # None when viewing the root
+    folder: FolderOut | None  
     breadcrumbs: list[BreadcrumbItem]
     subfolders: list[FolderOut]
     files: list[FileOut]

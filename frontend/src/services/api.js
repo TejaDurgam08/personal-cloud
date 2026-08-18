@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 // A single axios instance for the whole app: base URL + auth header
-// injection + centralized 401 handling live here so the rest of the
-// codebase never has to think about tokens.
+// injection + centralized 401 handling 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
 })

@@ -1,7 +1,4 @@
-"""Business logic for files: upload, listing (with sort/filter/pagination),
-rename/move/copy/favorite, soft-delete (trash), search, and previews.
-Delegates all filesystem access to StorageService; never touches disk
-directly."""
+
 from datetime import datetime, timezone
 
 from fastapi import HTTPException, UploadFile, status
@@ -92,14 +89,11 @@ def get_owned_file(db: Session, user_id: str, file_id: str, include_deleted: boo
     return file_record
 
 
-# ----------------------------------------------------------------------
-# Listing (folder contents), search, sort, filter, pagination
-# ----------------------------------------------------------------------
 def query_files(
     db: Session,
     user_id: str,
     *,
-    folder_id: str | None = "__unset__",  # sentinel: "__unset__" means "don't filter by folder"
+    folder_id: str | None = "__unset__",  
     search_query: str | None = None,
     extension: str | None = None,
     category: str | None = None,
@@ -118,7 +112,7 @@ def query_files(
     conditions.append(File.is_deleted == include_deleted)
 
     if favorite_only:
-        conditions.append(File.is_favorite == True)  # noqa: E712
+        conditions.append(File.is_favorite == True)  
 
     if search_query:
         like_pattern = f"%{search_query.lower()}%"
@@ -142,9 +136,6 @@ def query_files(
 
     results = list(db.execute(stmt).scalars())
 
-    # Category filtering happens in Python since it's derived from the
-    # filename extension, not a stored column — cheap for typical
-    # personal-cloud file counts, and avoids a wide CASE/IN clause.
     if category:
         try:
             wanted = FileCategory(category)
@@ -204,7 +195,6 @@ async def copy_file(db: Session, user_id: str, file_id: str) -> File:
 
 
 def _next_copy_name(db: Session, user_id: str, folder_id: str | None, original_name: str) -> str:
-    """resume.pdf -> resume (copy).pdf, resume (copy) (2).pdf, ..."""
     import os
 
     stem, ext = os.path.splitext(original_name)
@@ -278,8 +268,7 @@ def restore_file(db: Session, user_id: str, file_id: str) -> File:
     if not file_record.is_deleted:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="File is not in trash")
 
-    # If the original folder was deleted in the meantime, restore to root
-    # rather than failing.
+
     if file_record.folder_id is not None:
         from app.models.folder import Folder
         if db.get(Folder, file_record.folder_id) is None:
@@ -309,8 +298,7 @@ def empty_trash(db: Session, user_id: str) -> int:
 
 
 # ----------------------------------------------------------------------
-# Usage accounting (unaffected by trash — trashed files still occupy disk
-# space until permanently deleted, so they still count).
+# Usage accounting 
 # ----------------------------------------------------------------------
 def get_storage_usage(db: Session, user_id: str) -> tuple[int, int]:
     result = db.execute(

@@ -1,5 +1,5 @@
 """
-Personal Cloud – FastAPI application entrypoint.
+Personal Cloud – FastAPI application .
 
 Route composition only. Business logic lives in app/services/*,
 filesystem access lives in app/storage/storage_service.py.

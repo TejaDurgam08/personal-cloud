@@ -121,6 +121,5 @@ def delete(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Soft delete: moves the file to Trash. It stays on disk (and still
-    counts toward storage usage) until permanently deleted from Trash."""
+    
     file_service.soft_delete_file(db, current_user.id, file_id)

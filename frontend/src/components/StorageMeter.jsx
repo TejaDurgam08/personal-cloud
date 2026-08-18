@@ -4,9 +4,8 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { formatBytes } from '../utils/formatBytes.js'
 
-// A soft ceiling used only to give the progress bar a sense of scale
-// (the backend enforces no total-quota in phase 1, only per-file size).
-const DISPLAY_CEILING_BYTES = 4 * 1024 * 1024 * 1024 // 4 GB, typical microSD headroom
+
+const DISPLAY_CEILING_BYTES = 10 * 1024 * 1024 * 1024 
 
 export default function StorageMeter({ usedBytes, fileCount }) {
   const percent = Math.min(100, (usedBytes / DISPLAY_CEILING_BYTES) * 100)

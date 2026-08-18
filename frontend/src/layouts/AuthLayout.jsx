@@ -4,8 +4,7 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined'
 
-// Shared frame for the Login and Register pages: a centered card on a
-// quiet backdrop, with the app's mark and tagline above the form.
+
 export default function AuthLayout({ title, subtitle, children }) {
   return (
     <Box

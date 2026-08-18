@@ -47,7 +47,7 @@ export default function DrivePage() {
   const [info, setInfo] = useState('')
 
   const [createFolderOpen, setCreateFolderOpen] = useState(false)
-  const [renameTarget, setRenameTarget] = useState(null) // { kind: 'file'|'folder', item }
+  const [renameTarget, setRenameTarget] = useState(null) 
   const [moveTarget, setMoveTarget] = useState(null)
   const [deleteFileTarget, setDeleteFileTarget] = useState(null)
   const [deleteFolderTarget, setDeleteFolderTarget] = useState(null)

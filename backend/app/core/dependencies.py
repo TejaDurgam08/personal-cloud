@@ -1,4 +1,4 @@
-"""Shared FastAPI dependencies (auth, db session)."""
+
 from fastapi import Depends, HTTPException, Query, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
@@ -43,8 +43,5 @@ def get_current_user_allow_query_token(
     token_qs: str | None = Query(default=None, alias="token"),
     db: Session = Depends(get_db),
 ) -> User:
-    """Same as get_current_user, but also accepts the JWT as a ?token=
-    query parameter. Used ONLY for the preview endpoint, because native
-    <img>/<video>/<audio> elements can't attach an Authorization header —
-    the browser issues those requests itself."""
+    
     return _resolve_user(token or token_qs, db)

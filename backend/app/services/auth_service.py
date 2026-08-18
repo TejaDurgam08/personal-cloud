@@ -1,4 +1,3 @@
-"""Business logic for registration / login. Keeps API routes thin."""
 from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -31,7 +30,6 @@ def register_user(db: Session, data: UserCreate) -> User:
 
 
 def authenticate_user(db: Session, data: UserLogin) -> str:
-    """Validate credentials and return a signed JWT access token."""
     user = db.execute(select(User).where(User.email == data.email)).scalar_one_or_none()
 
     if user is None or not verify_password(data.password, user.password_hash):

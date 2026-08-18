@@ -1,13 +1,6 @@
 """
 StorageService
-==============
 
-The ONLY component in the application allowed to touch the filesystem.
-API routes and other services must go through this class rather than
-calling open()/os.remove()/etc. directly. This keeps file-handling logic
-(safety checks, streaming, path construction) in one place, and makes it
-possible to later swap the backing store (e.g. for an external USB drive
-or, in a future phase, a network location) without touching API code.
 """
 import os
 import shutil
@@ -44,8 +37,7 @@ class StorageService:
         return path
 
     def resolve_path(self, user_id: str, stored_filename: str) -> str:
-        """Build an absolute path for a stored file, guarding against
-        path traversal via the stored filename."""
+        
         user_dir = self._user_dir(user_id)
         full_path = os.path.join(user_dir, stored_filename)
         if not is_within_directory(user_dir, full_path):
@@ -56,9 +48,9 @@ class StorageService:
     # Write / delete
     # ------------------------------------------------------------------
     async def save_file(self, user_id: str, upload_file: UploadFile, max_bytes: int) -> tuple[str, str, int]:
-        """Stream the upload to disk in chunks (never loads the whole file
-        into memory). Returns (stored_filename, relative_path, size_bytes).
-        Enforces max_bytes and cleans up partial files on failure."""
+        """
+        Stream the upload to disk in chunks 
+        """
         self.ensure_user_dir(user_id)
         stored_filename = generate_stored_filename(upload_file.filename or "")
         dest_path = self.resolve_path(user_id, stored_filename)
@@ -72,7 +64,7 @@ class StorageService:
                         raise StorageError("File exceeds the maximum allowed upload size")
                     await out_file.write(chunk)
         except Exception:
-            # Clean up any partially written file before re-raising.
+
             if os.path.exists(dest_path):
                 os.remove(dest_path)
             raise
@@ -81,8 +73,10 @@ class StorageService:
         return stored_filename, relative_path, size
 
     def copy_file(self, user_id: str, source_stored_filename: str, original_filename: str) -> tuple[str, str, int]:
-        """Duplicate a file's bytes on disk under a new random name.
-        Returns (stored_filename, relative_path, size_bytes)."""
+        """
+        Duplicate a file's bytes on disk under a new random name.
+        
+        """
         source_path = self.resolve_path(user_id, source_stored_filename)
         new_stored_filename = generate_stored_filename(original_filename)
         dest_path = self.resolve_path(user_id, new_stored_filename)
@@ -101,7 +95,7 @@ class StorageService:
             os.remove(path)
 
     def delete_user_directory(self, user_id: str) -> None:
-        """Not exposed via API in phase 1, but useful for account cleanup later."""
+
         user_root = os.path.join(self.storage_root, user_id)
         if os.path.exists(user_root):
             shutil.rmtree(user_root)
@@ -116,21 +110,14 @@ class StorageService:
                 yield chunk
 
     async def read_text_preview(self, user_id: str, stored_filename: str, max_bytes: int) -> str:
-        """Read up to max_bytes of a file and decode as UTF-8 (best-effort)
-        for a syntax-highlighted text preview. Bounded read keeps memory
-        usage predictable on the Pi even for large files."""
+        """Read up to max_bytes of a file """
         path = self.resolve_path(user_id, stored_filename)
         async with aiofiles.open(path, "rb") as f:
             raw = await f.read(max_bytes)
         return raw.decode("utf-8", errors="replace")
 
-    # ------------------------------------------------------------------
-    # Usage accounting
-    # ------------------------------------------------------------------
     def get_directory_size(self, user_id: str) -> int:
-        """Sum of file sizes on disk for a user. Used as a sanity check /
-        fallback; the primary source of truth for usage is the database
-        (sum of File.file_size), which is far cheaper to query."""
+        """Sum of file sizes on disk for a user. """
         user_dir = self._user_dir(user_id)
         if not os.path.exists(user_dir):
             return 0

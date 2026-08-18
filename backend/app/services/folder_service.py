@@ -1,5 +1,4 @@
-"""Business logic for virtual folders. Folders are metadata-only (no
-filesystem directories are created) — see models/folder.py for why."""
+"""virtual folders."""
 from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -51,8 +50,7 @@ def create_folder(db: Session, user_id: str, folder_name: str, parent_id: str | 
 
 
 def _is_descendant(db: Session, folder_id: str, potential_ancestor_id: str) -> bool:
-    """True if potential_ancestor_id is folder_id itself or a descendant
-    of it — used to block moving a folder into its own subtree."""
+    
     current = db.get(Folder, folder_id)
     while current is not None:
         if current.id == potential_ancestor_id:
@@ -118,8 +116,7 @@ def delete_folder(db: Session, user_id: str, folder_id: str) -> None:
 
 
 def build_breadcrumbs(db: Session, folder: Folder | None) -> list[dict]:
-    """Returns [{"id": None, "folder_name": "Home"}, ..., current folder],
-    walking from the folder up to the root."""
+    
     chain: list[Folder] = []
     current = folder
     while current is not None:

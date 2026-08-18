@@ -22,8 +22,6 @@ import { fetchTextPreview, getPreviewUrl } from '../services/fileService.js'
 import { getLanguage, getPreviewKind } from '../utils/previewKind.js'
 import { formatBytes, formatDate } from '../utils/formatBytes.js'
 
-// Doubles as the "Preview Page" from the spec, shown as a modal so
-// navigating away never loses the user's place in the folder tree.
 export default function FilePreviewModal({
   file,
   open,

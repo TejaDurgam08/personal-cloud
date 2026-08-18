@@ -6,7 +6,6 @@ import ArchiveIcon from '@mui/icons-material/FolderZipOutlined'
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFileOutlined'
 
 // Maps the "icon" key the backend derives from a file's extension
-// (see backend app/utils/file_types.py) to a Material icon component.
 const ICON_MAP = {
   image: ImageIcon,
   description: DescriptionIcon,

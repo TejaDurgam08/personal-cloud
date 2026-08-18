@@ -4,8 +4,6 @@ import Typography from '@mui/material/Typography'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 
-// items: [{ id: null, folder_name: "Home" }, { id: "abc", folder_name: "Documents" }, ...]
-// The last item is the current folder and renders as plain text.
 export default function Breadcrumbs({ items, onNavigate }) {
   return (
     <MuiBreadcrumbs separator={<NavigateNextIcon fontSize="small" />}>

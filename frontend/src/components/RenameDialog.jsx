@@ -6,7 +6,6 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import TextField from '@mui/material/TextField'
 
-// Generic rename dialog for both files and folders.
 export default function RenameDialog({ open, initialName, itemLabel = 'item', onClose, onRename }) {
   const [name, setName] = useState(initialName || '')
   const [submitting, setSubmitting] = useState(false)

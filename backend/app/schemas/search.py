@@ -1,4 +1,4 @@
-from app.schemas.file import FileListOut  # re-exported for convenience
+from app.schemas.file import FileListOut 
 
 
 class SearchResultOut(FileListOut):

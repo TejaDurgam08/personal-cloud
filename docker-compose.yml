@@ -1,0 +1,37 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+
+    container_name: personal-cloud-backend
+
+    restart: "no"
+
+    env_file:
+      - ./backend/.env
+
+    volumes:
+      - ./data/storage:/app/storage
+
+    ports:
+      - "8000:8000"
+
+
+  frontend:
+    build:
+      context: ./frontend
+
+    container_name: personal-cloud-frontend
+
+    restart: "no"
+
+    ports:
+      - "5173:5173"
+
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+    depends_on:
+      - backend

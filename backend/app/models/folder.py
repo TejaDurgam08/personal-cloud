@@ -12,11 +12,7 @@ def _uuid() -> str:
 
 
 class Folder(Base):
-    """A purely virtual grouping of files/folders. Folders have no
-    corresponding directory on disk — files always live flat inside
-    storage/<user_id>/uploads/, and folder_id on File is just metadata.
-    This keeps folder create/rename/move O(1) (no disk I/O) and avoids
-    filesystem path-length/permission issues on the Pi."""
+
 
     __tablename__ = "folders"
 

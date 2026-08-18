@@ -15,8 +15,7 @@ import Box from '@mui/material/Box'
 import Breadcrumbs from './Breadcrumbs.jsx'
 import { getFolderContents } from '../services/folderService.js'
 
-// A minimal folder browser used to pick a destination for move operations.
-// excludeFolderId prevents moving a folder into itself/its own listing.
+
 export default function MoveDialog({ open, onClose, onMove, excludeFolderId = null, title = 'Move' }) {
   const [currentFolderId, setCurrentFolderId] = useState(null)
   const [contents, setContents] = useState(null)

@@ -116,7 +116,7 @@ export default function DashboardPage() {
                       onFavorite={handleFavorite}
                       onDelete={handleDelete}
                     />
-                  </Grid>
+                  </Grid> 
                 ))}
               </Grid>
             )}

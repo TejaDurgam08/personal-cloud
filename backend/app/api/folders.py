@@ -10,7 +10,7 @@ from app.services import file_service, folder_service
 
 router = APIRouter(prefix="/folders", tags=["folders"])
 
-ROOT = "root"  # sentinel path segment representing "My Drive" (folder_id = NULL)
+ROOT = "root"  #  "My Drive" (folder_id = NULL)
 
 
 @router.post("", response_model=FolderOut, status_code=201)

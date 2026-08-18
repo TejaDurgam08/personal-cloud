@@ -11,7 +11,7 @@ class FileOut(BaseModel):
     folder_id: str | None
     file_size: int
     mime_type: str
-    category: str  # image | document | video | audio | archive | other
+    category: str  
     icon: str
     is_favorite: bool
     uploaded_at: datetime

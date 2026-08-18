@@ -1,11 +1,6 @@
 """
-Central place mapping a file's mime type / extension to:
-  - a coarse category used for filtering (images, documents, videos, ...)
-  - whether it can be inline-previewed, and how
-  - a display icon key for the frontend
+ mapping a file's mime type / extension
 
-Keeping this as pure lookups (no I/O) means it's cheap to call on every
-row of a file listing, which matters on the Pi.
 """
 import os
 from enum import StrEnum
@@ -35,7 +30,7 @@ _VIDEO_EXT = {".mp4", ".webm", ".mov", ".avi", ".mkv"}
 _AUDIO_EXT = {".mp3", ".wav", ".ogg", ".flac", ".m4a"}
 _ARCHIVE_EXT = {".zip", ".tar", ".gz", ".rar", ".7z", ".bz2"}
 
-# Text/code files with syntax-highlighted preview support.
+# Text/code files with preview support.
 _PREVIEWABLE_TEXT_EXT = {".txt", ".json", ".md", ".py", ".js", ".jsx", ".ts", ".tsx", ".html", ".css", ".yml", ".yaml"}
 _PREVIEWABLE_IMAGE_EXT = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
 _PREVIEWABLE_AUDIO_EXT = {".mp3", ".wav", ".ogg"}
@@ -90,6 +85,5 @@ def preview_kind(filename: str) -> PreviewKind:
     return PreviewKind.NONE
 
 
-# Max bytes read into memory for a text preview — keeps memory bounded on
-# the Pi even if someone renames a huge file to file.txt.
+# Max bytes read into memory for a text preview 
 MAX_TEXT_PREVIEW_BYTES = 512 * 1024
